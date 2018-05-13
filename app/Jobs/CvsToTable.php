@@ -8,6 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
+use App\Contact;
+
 class CvsToTable implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -41,8 +43,19 @@ class CvsToTable implements ShouldQueue
             $contact[] = $csv_row;
         }
 
+        print_r($contact);
+
+        //no need for the first row that includes the names of the columns
         unset($contact[0]);
 
+        foreach($contact as $contact_row) {
+            $new_contact = new Contact();
+            $new_contact->name = $contact_row[0];
+            $new_contact->email = $contact_row[1];
+            $new_contact->subject = $contact_row[2];
+            $new_contact->content = $contact_row[3];
 
+            $new_contact->save();
+        }
     }
 }
