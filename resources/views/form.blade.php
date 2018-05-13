@@ -76,8 +76,11 @@
 
               if(confirmation) {
                 $.ajax({
-                  type: 'DELETE',
-                  url: `/delete-record/${$(this).data('id')}`
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'DELETE',
+                    url: `/delete-record/${$(this).data('id')}`
                 }).done((response) => {
                   window.location.replace('/form');
                 });
