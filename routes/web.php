@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/form', function () {
-    return view('form');
-});
+// Route::get('/form', function () {
+//     return view('form');
+// });
+
+Route::get('/form', array('uses' => 'ContactController@showForm'));
