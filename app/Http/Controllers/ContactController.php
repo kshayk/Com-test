@@ -38,7 +38,9 @@ class ContactController extends Controller
         ];
 
         //TODO: try catch this
-        fputcsv($file ,$data_array);
+        foreach($data_array as $field) {
+            fputcsv($file, $field);
+        }
 
         return response()->json('success', [], 200);
     }
