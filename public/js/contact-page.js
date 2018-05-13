@@ -35,14 +35,16 @@ function deleteUser() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'DELETE',
-        url: `/delete-record/${$(this).data('id')}`
-    }).done((response) => {
-      window.location.replace('/form');
-      return true;
+        url: `/delete-record/${$(this).data('id')}`,
+        success: function() {
+             $(this).remove();
+             return;
+        },
+        fail: function(fail_messaage) {
+            alert(fail_messaage);
+            return;
+        }
     });
-
-    window.location.replace('/form');
-    return true;
   } else {
     return false;
   }
