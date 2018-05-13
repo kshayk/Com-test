@@ -67,7 +67,7 @@ class ContactController extends Controller
             return response()->json("The requested record was not found", 400);
         }
 
-        return response()->json("Deleted the record successfully", 200)
+        return response()->json("Deleted the record successfully", 200);
     }
 
     private function randomString($length = 5)
