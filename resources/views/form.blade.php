@@ -80,11 +80,15 @@
                         url: "/submit-form",
                         data: $('form#contact-form').serialize(),
                         success: (data) => {
-                            console.log(data);
+                            alert('Added successfully. the data will be shown shortly.');
+                            window.location.replace('/form');
+                            return false;
+                        },
+                        fail: (data) => {
+                            alert(data);
+                            window.location.replace('/form');
+                            return false;
                         }
-                    }).done((response) => {
-                      window.location.replace('/form');
-                      return false;
                     });
                 });
             });

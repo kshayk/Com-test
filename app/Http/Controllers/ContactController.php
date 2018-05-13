@@ -39,8 +39,6 @@ class ContactController extends Controller
             return response()->json('Failed', 400);
         }
 
-        print_r($request->all());
-
         $random_string = $this->randomString(5);
 
         //TODO: try catch this
