@@ -37,12 +37,12 @@ function deleteUser() {
         type: 'DELETE',
         url: `/delete-record/${$(this).data('id')}`,
         success: function() {
-            console.log($(this));
-             $(this).remove();
-             return;
+            window.location.replace('/form');
+            return;
         },
         fail: function(fail_messaage) {
             alert(fail_messaage);
+            window.location.replace('/form');
             return;
         }
     });
