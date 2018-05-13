@@ -37,6 +37,7 @@ function deleteUser() {
         type: 'DELETE',
         url: `/delete-record/${$(this).data('id')}`,
         success: function() {
+            console.log(this);
              $(this).remove();
              return;
         },
