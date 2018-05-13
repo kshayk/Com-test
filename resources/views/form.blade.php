@@ -12,7 +12,7 @@
 
         <div class="col-md-3"></div>
         <div class="col-md-6" style="float: none; margin: 0 auto">
-            <form method="POST" action="/submit-form">
+            <form id="contact-form">
                 @csrf
 
                 <div class="form-group">
@@ -69,6 +69,24 @@
         <script>
             $(document).ready(function() {
                 $('.deleteContact').on('click', deleteUser);
+                $('#contact-form').submit((event) => {
+                    event.preventDefault();
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        url: "/submit-form",
+                        data: $('form#contact-form').serialize(),
+                        success: (data) => {
+                            console.log(data);
+                        }
+                    }).done((response) => {
+                      window.location.replace('/form');
+                      return false;
+                    });
+                });
             });
 
             function deleteUser() {
@@ -83,9 +101,11 @@
                     url: `/delete-record/${$(this).data('id')}`
                 }).done((response) => {
                   window.location.replace('/form');
+                  return false;
                 });
 
                 window.location.replace('/form');
+                return false;
               } else {
                 return false;
               }
