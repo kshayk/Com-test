@@ -61,7 +61,6 @@ class ContactController extends Controller
 
     public function deleteRecord($id)
     {
-        var_dump($id);
         $contact = Contact::where('id', $id)->first();
 
         if( ! empty($contact)) {
