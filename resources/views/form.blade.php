@@ -34,7 +34,7 @@
         @if( ! empty($data))
             <br><br><br>
 
-            <div class="col-md-6">
+            <div class="col-md-6" style="float: none; margin: 0 auto">
                 <h3>contact tickets</h3>
                 <table class="table table-striped">
                     <thead>
@@ -51,7 +51,7 @@
                             <td>{{ $contact->name }}</td>
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->subject }}</td>
-                            <td>{{ $contact->conent }}</td>
+                            <td>{{ $contact->content }}</td>
                         </tr>
                     @endforeach
                 </table>
