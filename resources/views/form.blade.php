@@ -6,6 +6,7 @@
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+        <script src="/js/contact-page.js"></script>
     </head>
     <body>
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -65,55 +66,5 @@
         @endif
 
         <div class="col-md-3"></div>
-
-        <script>
-            $(document).ready(function() {
-                $('.deleteContact').on('click', deleteUser);
-                $('#contact-form').submit((event) => {
-                    event.preventDefault();
-
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'POST',
-                        url: "/submit-form",
-                        data: $('form#contact-form').serialize(),
-                        success: (data) => {
-                            alert('Added successfully. the data will be shown shortly.');
-                            window.location.replace('/form');
-                            return false;
-                        },
-                        fail: (data) => {
-                            alert(data);
-                            window.location.replace('/form');
-                            return false;
-                        }
-                    });
-                });
-            });
-
-            function deleteUser() {
-              var confirmation = confirm('Are you sure?');
-
-              if(confirmation) {
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'DELETE',
-                    url: `/delete-record/${$(this).data('id')}`
-                }).done((response) => {
-                  window.location.replace('/form');
-                  return false;
-                });
-
-                window.location.replace('/form');
-                return false;
-              } else {
-                return false;
-              }
-            };
-        </script>
     </body>
 </html>

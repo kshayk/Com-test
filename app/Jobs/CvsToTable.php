@@ -33,6 +33,7 @@ class CvsToTable implements ShouldQueue
      */
     public function handle()
     {
+        //this will get all the data, row by row from the CSV file
         $file = fopen($this->file_path, 'r');
         $contact = [];
         while( ! feof($file)) {
@@ -43,11 +44,11 @@ class CvsToTable implements ShouldQueue
             $contact[] = $csv_row;
         }
 
-        print_r($contact);
-
         //no need for the first row that includes the names of the columns
         unset($contact[0]);
 
+        //saving each row in the database
+        //in our case it will always be one row but it still supports multiple rows
         foreach($contact as $contact_row) {
             $new_contact = new Contact();
             $new_contact->name = $contact_row[0];
