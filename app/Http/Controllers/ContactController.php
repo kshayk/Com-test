@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Jobs\CvsToTable;
 
 class ContactController extends Controller
 {
@@ -41,6 +42,8 @@ class ContactController extends Controller
         foreach($data_array as $field) {
             fputcsv($file, $field);
         }
+
+        CvsToTable::dispath($random_string);
 
         return response()->json('success', 200);
     }

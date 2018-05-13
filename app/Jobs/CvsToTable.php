@@ -12,14 +12,16 @@ class CvsToTable implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private $file_path;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($file_random_string)
     {
-        //
+        $this->file_path = "/var/www/tmp/csv_{$file_random_string}.csv";
     }
 
     /**
@@ -29,6 +31,18 @@ class CvsToTable implements ShouldQueue
      */
     public function handle()
     {
-        //
+        $file = fopen($this->file_path, 'r');
+        $contact = [];
+        while( ! feof($file)) {
+            $csv_row = fgetcsv($file);
+            if(is_bool($csv_row)) {
+                continue;
+            }
+            $contact[] = $csv_row;
+        }
+
+        unset($contact[0]);
+
+
     }
 }
