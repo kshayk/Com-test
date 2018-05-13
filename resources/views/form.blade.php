@@ -6,26 +6,30 @@
     <body>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <form method="POST" action="/submit-form">
-            @csrf
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="float: none; margin: 0 auto">
+            <form method="POST" action="/submit-form">
+                @csrf
 
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject:</label>
-                <input type="text" name="subject" id="subject" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Content:</label>
-                <textarea name="content" id="content" class="form-control" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Submit</button>
-        </form>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" name="subject" id="subject" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Content:</label>
+                    <textarea name="content" id="content" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-3"></div>
     </body>
 </html>
