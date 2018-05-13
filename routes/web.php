@@ -17,4 +17,4 @@
 
 Route::get('/form', array('uses' => 'ContactController@showForm'));
 Route::post('/submit-form', ['uses' => 'ContactController@submitForm']);
-Route::delete('/delete-record/{id}}', ['uses' => 'ContactController@deleteRecord'])
+Route::delete('/delete-record/{id}}', ['uses' => 'ContactController@deleteRecord']);
