@@ -30,6 +30,34 @@
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
+
+        @if( ! empty($data))
+            <br><br><br>
+
+            <div class="col-md-6">
+                <h3>contact tickets</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Content</th>
+                        </tr>
+                    </thead>
+
+                    @foreach ($data as $contact)
+                        <tr>
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->email }}</td>
+                            <td>{{ $data->subject }}</td>
+                            <td>{{ $data->conent }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
+
         <div class="col-md-3"></div>
     </body>
 </html>

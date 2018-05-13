@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Jobs\CvsToTable;
+use App\Contact;
 
 class ContactController extends Controller
 {
@@ -20,8 +21,9 @@ class ContactController extends Controller
 
     public function showForm(Request $request)
     {
+        $contact_details = Contact::all();
 
-        return view('form');
+        return view('form', ['data' => $contact_details]);
     }
 
     public function submitForm(Request $request)
