@@ -30,7 +30,7 @@ class ContactController extends Controller
         $random_string = $this->randomString(5);
 
         //TODO: try catch this
-        $file = fopen("/var/tmp/csv_{$random_string}.csv", "w+");
+        $file = fopen("/var/www/tmp/csv_{$random_string}.csv", "w+");
 
         $data_array = [
             ['name', 'email', 'subject', 'content'],
@@ -42,7 +42,7 @@ class ContactController extends Controller
             fputcsv($file, $field);
         }
 
-        return response()->json('success', [], 200);
+        return response()->json('success', 200);
     }
 
     private function randomString($length = 5)
