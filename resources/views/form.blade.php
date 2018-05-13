@@ -48,10 +48,10 @@
 
                     @foreach ($data as $contact)
                         <tr>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->email }}</td>
-                            <td>{{ $data->subject }}</td>
-                            <td>{{ $data->conent }}</td>
+                            <td>{{ $contact->name }}</td>
+                            <td>{{ $contact->email }}</td>
+                            <td>{{ $contact->subject }}</td>
+                            <td>{{ $contact->conent }}</td>
                         </tr>
                     @endforeach
                 </table>
