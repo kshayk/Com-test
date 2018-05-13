@@ -52,6 +52,7 @@
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->subject }}</td>
                             <td>{{ $contact->content }}</td>
+                            <td><a href="#" class="deleteContact" data-id="{{ $contact->id }}">Delete</a></td>
                         </tr>
                     @endforeach
                 </table>
@@ -59,5 +60,28 @@
         @endif
 
         <div class="col-md-3"></div>
+
+        <script>
+            $(document).ready(function() {
+                $('.deleteContact').on('click', deleteUser);
+            });
+
+            function deleteUser() {
+              var confirmation = confirm('Are you sure?');
+
+              if(confirmation) {
+                $.ajax({
+                  type: 'DELETE',
+                  url: `/delete-record/${$(this).data('id')}`
+                }).done((response) => {
+                  window.location.replace('/');
+                });
+
+                window.location.replace('/');
+              } else {
+                return false;
+              }
+            };
+        </script>
     </body>
 </html>
