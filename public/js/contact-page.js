@@ -38,11 +38,11 @@ function deleteUser() {
         url: `/delete-record/${$(this).data('id')}`
     }).done((response) => {
       window.location.replace('/form');
-      return false;
+      return true;
     });
 
     window.location.replace('/form');
-    return false;
+    return true;
   } else {
     return false;
   }
