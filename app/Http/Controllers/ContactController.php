@@ -43,7 +43,7 @@ class ContactController extends Controller
             fputcsv($file, $field);
         }
 
-        CvsToTable::dispath($random_string);
+        CvsToTable::dispatch($random_string);
 
         return response()->json('success', 200);
     }
