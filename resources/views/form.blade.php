@@ -43,6 +43,7 @@
                             <th>Email</th>
                             <th>Subject</th>
                             <th>Content</th>
+                            <th>actions</th>
                         </tr>
                     </thead>
 
@@ -74,10 +75,10 @@
                   type: 'DELETE',
                   url: `/delete-record/${$(this).data('id')}`
                 }).done((response) => {
-                  window.location.replace('/');
+                  window.location.replace('/form');
                 });
 
-                window.location.replace('/');
+                window.location.replace('/form');
               } else {
                 return false;
               }
