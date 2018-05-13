@@ -19,6 +19,7 @@ class ContactController extends Controller
 
     public function showForm(Request $request)
     {
+
         return view('form');
     }
 

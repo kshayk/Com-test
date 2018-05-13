@@ -16,4 +16,4 @@
 // });
 
 Route::get('/form', array('uses' => 'ContactController@showForm'));
-Routh::post('/submit-form', ['uses' => 'ContactController@submitForm']);
+Route::post('/submit-form', ['uses' => 'ContactController@submitForm']);
