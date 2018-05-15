@@ -13,9 +13,9 @@ class CreateSubmitterTable extends Migration
      */
     public function up()
     {
-        Schema::create('submitter', function (Blueprint $table) {
+        Schema::create('submitters', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('email', 100)->unique();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateSubmitterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('submitter');
+        Schema::dropIfExists('submitters');
     }
 }

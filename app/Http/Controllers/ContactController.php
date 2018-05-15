@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Jobs\CvsToTable;
 use App\Contact;
+use App\Submitter;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -21,13 +23,17 @@ class ContactController extends Controller
 
     public function showForm(Request $request)
     {
-        $contact_details = Contact::all();
+        //get all the contact tickets and show them on the main page
+        $contact_details = Contact::with('submitter')->get();
 
         return view('form', ['data' => $contact_details]);
     }
 
     public function submitForm(Request $request)
     {
+        $form_data = $request->all();
+
+        //laravel validator
         $validatedData = $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:50',
@@ -35,25 +41,44 @@ class ContactController extends Controller
             'content' => 'required|max:1000'
         ]);
 
-        if( ! filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
+        //Email validator
+        if( ! filter_var($form_data['email'], FILTER_VALIDATE_EMAIL)) {
             return response()->json('Failed', 400);
         }
 
         $random_string = $this->randomString(5);
 
-        //TODO: try catch this
-        $file = fopen("/var/www/tmp/csv_{$random_string}.csv", "w+");
+        //check if user with that email exists. if not, create one.
+        $user = Submitter::firstOrNew(['email' => $form_data['email']]));
+        $user->email = $form_data['email'];
+        $user->save();
 
-        $data_array = [
-            ['name', 'email', 'subject', 'content'],
-            [$request->input('name'), $request->input('email'), $request->input('subject'), $request->input('content')]
-        ];
-
-        //TODO: try catch this
-        foreach($data_array as $field) {
-            fputcsv($file, $field);
+        //create new file that the data will be inserted to
+        try {
+            $file = fopen("/var/www/tmp/csv_{$random_string}.csv", "w+");
+        } catch(\Exception $e) {
+            Log::info('Failed to create a new CSV file. Error: ' . $e->getMesaage());
+            return response()->json('Failed', 400);
         }
 
+        //creating the data structure to be inserted into the CSV file
+        $data_array = [
+            ['name', 'email', 'subject', 'content'],
+            [$form_data['name'], $form_data['email'], $form_data['subject'], $form_data['content']]
+        ];
+
+        //inserting the data into the CSV file
+        foreach($data_array as $field) {
+            try {
+                fputcsv($file, $field);
+            } catch(\Exception $e) {
+                Log::info('Failed to insert data into the CSV file. Error: ' . $e->getMesaage());
+                return response()->json('Failed', 400);
+            }
+        }
+
+        //Adding a new job to the queue.
+        //this job will insert the data inside the CSV file to the database
         CvsToTable::dispatch($random_string);
 
         return response()->json('success', 200);

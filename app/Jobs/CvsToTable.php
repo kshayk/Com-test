@@ -58,5 +58,8 @@ class CvsToTable implements ShouldQueue
 
             $new_contact->save();
         }
+
+        //after inserting the data there is no need for this file. deleting it here.
+        unlink($this->file_path);
     }
 }
