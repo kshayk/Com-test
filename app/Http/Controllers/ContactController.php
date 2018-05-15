@@ -49,7 +49,7 @@ class ContactController extends Controller
         $random_string = $this->randomString(5);
 
         //check if user with that email exists. if not, create one.
-        $user = Submitter::firstOrNew(['email' => $form_data['email']]));
+        $user = Submitter::firstOrNew(['email' => $form_data['email']]);
         $user->email = $form_data['email'];
         $user->save();
 
