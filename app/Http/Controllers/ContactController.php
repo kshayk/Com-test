@@ -26,6 +26,8 @@ class ContactController extends Controller
         //get all the contact tickets and show them on the main page
         $contact_details = Contact::with('submitter')->get();
 
+        print_r($contact_details);
+
         return view('form', ['data' => $contact_details]);
     }
 
