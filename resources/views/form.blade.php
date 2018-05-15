@@ -48,6 +48,7 @@
                             <th>Email</th>
                             <th>Subject</th>
                             <th>Content</th>
+                            <th>Submitter ID</th>
                             <th>actions</th>
                         </tr>
                     </thead>
@@ -58,6 +59,7 @@
                             <td>{{ $contact->email }}</td>
                             <td>{{ $contact->subject }}</td>
                             <td>{{ $contact->content }}</td>
+                            <td>{{ $contact->submitter->id }}</td>
                             <td><a href="#" class="deleteContact" data-id="{{ $contact->id }}">Delete</a></td>
                         </tr>
                     @endforeach
